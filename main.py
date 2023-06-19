@@ -2,9 +2,20 @@ import os
 from pytube import YouTube
 
 #create directory
-directory_name = input("Enter the name of directory you want to create: ")
+directory = input("Enter the name of the directory you want to create: ")
 
-os.mkdir(directory_name)
+os.mkdir(directory)
+
+def Download(link):
+    youtubeObject = YouTube(link)
+    youtubeObject = youtubeObject.streams.get_highest_resolution()
+    try:
+        youtubeObject.download(directory)
+    except:
+        print("An error has occurred")
+    print("Download is completed successfully")
 
 
+link = input("Enter the YouTube video URL: ")
+Download(link)
 
