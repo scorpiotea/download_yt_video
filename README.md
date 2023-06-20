@@ -1,1 +1,1 @@
-A program wich downloads a youtube video and puts it into a folder you create.
+A program wich downloads youtube videos from a text file or links provided in command line.
