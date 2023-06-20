@@ -32,10 +32,14 @@ def Download(link):
 
 #function to check if provided arguments are files
 def CheckArgs():
-    for arg in args[1:]:
-        if os.path.isfile(arg):
-            GetFileData(arg)
-        else:
-            Download(arg)
+    if len(args) > 1 : 
+        for arg in args[1:]:
+            if os.path.isfile(arg):
+                GetFileData(arg)
+            else:
+                Download(arg)
+    else:
+        print('No arguments provided')
+        exit()
 
 CheckArgs()
