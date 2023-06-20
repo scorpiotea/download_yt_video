@@ -1,22 +1,41 @@
 import os
+import sys
 from pytube import YouTube
 
-#create directory
-directory = input("Enter the name of the directory you want to create: ")
+args = sys.argv
 
-os.mkdir(directory)
+#function to get data from text file
+def GetFileData():
+    modifiedLink = []
+    file = open(fileName, 'r')
+    read = file.readlines()
+    file.close()
+
+    for link in read:
+        if link[-1] == '\n':
+            modifiedLink.append(link[:-1])
+        else:
+            modifiedLink.append(link)
+    print(modifiedLink)
+    Download(modifiedLink)
 
 #function to download youtube video
-def Download(link):
-    youtubeObject = YouTube(link)
-    youtubeObject = youtubeObject.streams.get_highest_resolution()
-    try:
-        youtubeObject.download(directory)
-    except:
-        print("An error has occurred")
-    print("Download is completed successfully")
+def Download(videoLink):
+    for link in videoLink:
+        youtubeObject = YouTube(link)
+        youtubeObject = youtubeObject.streams.get_highest_resolution()
+        try:
+            youtubeObject.download()
+        except:
+            print('An error has occurred')
+        print('Download is completed successfully')
 
+#checking if provided arguments are files
+if os.path.isfile(args[1]):
+    fileName = args[1]
+    GetFileData()
+else:
+    args = args[1:]
+    Download(args)
 
-link = input("Enter the YouTube video URL: ")
-Download(link)
 
