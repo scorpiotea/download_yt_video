@@ -5,41 +5,41 @@ from pytube import YouTube
 args = sys.argv
 
 #function to get data from text file
-def GetFileData(arg):
-    modifiedLine = []
+def get_file_data(arg):
+    modified_line = []
     file = open(arg, 'r')
     read = file.readlines()
     file.close()
 
     for line in read:
         if line[-1] == '\n':
-            modifiedLine.append(line[:-1])
+            modified_line.append(line[:-1])
         else:
-            modifiedLine.append(line)
+            modified_line.append(line)
     
-    for link in modifiedLine:
-        Download(link)
+    for link in modified_line:
+        download(link)
 
 #function to download youtube video
-def Download(link):
-        youtubeObject = YouTube(link)
-        youtubeObject = youtubeObject.streams.get_highest_resolution()
+def download(link):
+        youtube_object = YouTube(link)
+        youtube_object = youtube_object.streams.get_highest_resolution()
         try:
-            youtubeObject.download()
+            youtube_object.download()
         except:
             print('An error has occurred')
         print('Download is completed successfully')
 
 #function to check if provided arguments are files
-def CheckArgs():
+def check_arguments():
     if len(args) > 1 : 
         for arg in args[1:]:
             if os.path.isfile(arg):
-                GetFileData(arg)
+                get_file_data(arg)
             else:
-                Download(arg)
+                download(arg)
     else:
         print('No arguments provided')
         exit()
 
-CheckArgs()
+check_arguments()
