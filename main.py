@@ -3,4 +3,4 @@ import functions as fun
 
 args = sys.argv
 
-fun.check_arguments()
+fun.check_arguments(args)
